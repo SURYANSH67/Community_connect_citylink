@@ -1,123 +1,248 @@
 {% extends "layouts/base.html" %}
 
 {% block content %}
-<div class="main-content">
-    <!-- 1. Page Header -->
-    <!-- 1. Page Header -->
-<div class="page-header">
-    {% if current_user.role == 'Admin' %}
-        <h1 class="h2 fw-bold">Admin Dashboard</h1>
-        <p class="text-muted">A high-level overview of all community reports.</p>
-    {% else %}
-        <h1 class="h2 fw-bold">Official's Dashboard</h1>
-        <p class="text-muted">A list of all reports currently assigned to you.</p>
-    {% endif %}
-</div>s
+<div class="main-content container-fluid mt-4">
 
-    <!-- 2. Stat Cards Section -->
-    <div class="row mb-4">
-        <div class="col-lg-3 col-md-6 mb-4"><div class="stat-card border-primary h-100"><div class="card-body"><div class="stat-text"><div class="stat-title">Total Reports</div><div class="stat-number">{{ stats.total }}</div></div><div class="stat-icon"><i class="fas fa-file-alt"></i></div></div></div></div>
-        <div class="col-lg-3 col-md-6 mb-4"><div class="stat-card border-warning h-100"><div class="card-body"><div class="stat-text"><div class="stat-title">Pending Review</div><div class="stat-number">{{ stats.pending }}</div></div><div class="stat-icon"><i class="fas fa-hourglass-start"></i></div></div></div></div>
-        <div class="col-lg-3 col-md-6 mb-4"><div class="stat-card border-info h-100"><div class="card-body"><div class="stat-text"><div class="stat-title">In Progress</div><div class="stat-number">{{ stats.in_progress }}</div></div><div class="stat-icon"><i class="fas fa-sync-alt"></i></div></div></div></div>
-        <div class="col-lg-3 col-md-6 mb-4"><div class="stat-card border-success h-100"><div class="card-body"><div class="stat-text"><div class="stat-title">Resolved</div><div class="stat-number">{{ stats.resolved }}</div></div><div class="stat-icon"><i class="fas fa-check-circle"></i></div></div></div></div>
+
+
+    <!-- Page Header -->
+    <div class="page-header mb-4 border-bottom pb-3">
+        {% if current_user.role == 'Admin' %}
+        <h1 class="h2 fw-bold">
+            <i class="fas fa-shield-alt text-primary me-2"></i>
+            System Assessment Dashboard
+        </h1>
+        <p class="text-muted">High-level overview of all submitted reports.</p>
+        {% else %}
+        <h1 class="h2 fw-bold">
+            <i class="fas fa-clipboard-log text-primary me-2"></i>
+            Administrator Dashboard
+        </h1>
+        <p class="text-muted">Overview of reports assigned to you.</p>
+        {% endif %}
     </div>
 
-    <!-- 3. Controls Section: Chart, Filters, and Breakdown -->
-    <div class="row mb-4">
+    <!-- Stat Cards -->
+    <div class="row mb-5">
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stat-card border-primary shadow-sm h-100 rounded-3 border-start border-5">
+                <div class="card-body">
+                    <div class="stat-title text-uppercase fw-bold text-muted small">Total Reports</div>
+                    <div class="display-5 fw-bold">{{ stats.total }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stat-card border-warning shadow-sm h-100 rounded-3 border-start border-5">
+                <div class="card-body">
+                    <div class="stat-title text-uppercase fw-bold text-muted small">Pending</div>
+                    <div class="display-5 fw-bold">{{ stats.pending }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stat-card border-info shadow-sm h-100 rounded-3 border-start border-5">
+                <div class="card-body">
+                    <div class="stat-title text-uppercase fw-bold text-muted small">In Progress</div>
+                    <div class="display-5 fw-bold">{{ stats.in_progress }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stat-card border-success shadow-sm h-100 rounded-3 border-start border-5">
+                <div class="card-body">
+                    <div class="stat-title text-uppercase fw-bold text-muted small">Resolved</div>
+                    <div class="display-5 fw-bold">{{ stats.resolved }}</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Chart + Filters -->
+    <div class="row mb-5">
+
         <!-- Doughnut Chart -->
         <div class="col-lg-5 mb-4">
-            <div class="card chart-card">
-                <div class="card-header bg-white"><i class="fas fa-chart-pie me-1"></i> Breakdown by Issue</div>
-                <div class="card-body p-4"><canvas id="issueDoughnutChart"></canvas></div>
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-primary text-white fw-bold">
+                    <i class="fas fa-chart-pie me-2"></i>Issue Breakdown
+                </div>
+                <div class="card-body p-4">
+                    <script id="issue-labels-data" type="application/json">{{ issue_labels | safe }}</script>
+                    <script id="issue-data-counts" type="application/json">{{ issue_data | safe }}</script>
+                    <canvas id="issueDoughnutChart"></canvas>
+                </div>
             </div>
         </div>
-        
-        <!-- Filter & Breakdown List -->
+
+        <!-- Filters -->
         <div class="col-lg-7 mb-4">
-            <div class="card filter-card p-4">
-                <h5 class="card-title mb-3 fw-bold">Filter Complaints</h5>
-                 <!-- === THIS IS THE CORRECTED FORM === -->
-    <form method="GET" action="{{ url_for('admin.dashboard') }}" class="row g-3 align-items-end">
-        <div class="col-md-5 ">
-            {{ form.search.label(class="form-label") }}
-            {{ form.search(class="form-control ", placeholder="Ticket ID or Address...") }}
-        </div>
-        <div class="col-md-3">
-            {{ form.status.label(class="form-label") }}
-            <!-- Let WTForms render the full select element with the correct class -->
-            {{ form.status(class="form-select") }}
-        </div>
-        <div class="col-md-4">
-            {{ form.issue_type.label(class="form-label") }}
-            <!-- Do the same for the issue_type field -->
-            {{ form.issue_type(class="form-select") }}
-        </div>
-        <div class="col-12 mt-3 text-end">
-            <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">Reset</a>
-            <button type="submit" class="btn btn-primary ms-2"><i class="fas fa-filter me-1"></i> Apply Filter</button>
-        </div>
-    </form>
-    <!-- === END OF CORRECTED FORM === -->
-                
+            <div class="card p-4 shadow-sm border-0 bg-light h-100">
+
+                <h5 class="fw-bold mb-3">Filter Records</h5>
+
+                <form method="GET" action="{{ url_for('admin.dashboard') }}" class="row g-3">
+
+                    <div class="col-md-5">
+                        {{ form.search.label(class="form-label fw-bold") }}
+                        {{ form.search(class="form-control", placeholder="Ticket ID or Address...") }}
+                    </div>
+
+                    <div class="col-md-3">
+                        {{ form.status.label(class="form-label fw-bold") }}
+                        {{ form.status(class="form-select") }}
+                    </div>
+
+                    <div class="col-md-4">
+                        {{ form.issue_type.label(class="form-label fw-bold") }}
+                        {{ form.issue_type(class="form-select") }}
+                    </div>
+
+                    <div class="col-12 text-end mt-3">
+                        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary">
+                            Reset
+                        </a>
+
+                        <button type="submit" class="btn btn-primary">
+                            Apply Filter
+                        </button>
+                    </div>
+
+                </form>
+
                 <hr class="my-4">
-                
-                <h5 class="card-title mb-3 fw-bold">Breakdown List</h5>
+
+                <!-- Category Breakdown -->
+                <h5 class="fw-bold">Category Breakdown</h5>
+
                 <ul class="list-group list-group-flush">
+
                     {% for issue, count in issue_counts.items() %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent px-0">
-                            {{ issue }}
-                            <span class="badge bg-primary rounded-pill">{{ count }}</span>
-                        </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>{{ issue }}</span>
+                        <span class="badge bg-primary">{{ count }}</span>
+                    </li>
                     {% else %}
-                        <li class="list-group-item bg-transparent px-0">No data available.</li>
+                    <li class="list-group-item text-muted text-center">
+                        No data available
+                    </li>
                     {% endfor %}
+
                 </ul>
+
             </div>
         </div>
+
     </div>
 
-    <!-- 4. Complaints Table -->
-    <div class="table-container">
-        <h2 class="h4 fw-bold">All Complaints</h2>
+
+    <!-- Complaints Table -->
+    <div class="shadow-sm border-0 rounded-3 mt-4 mb-5">
+
+        <h2 class="h4 fw-bold mb-4">All Reports</h2>
+
         <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead><tr><th scope="col">Ticket ID</th><th scope="col">Issue Type</th><th scope="col">Location</th><th scope="col">Reported On</th><th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
+
+            <table class="table table-hover align-middle border-top">
+
+                <thead class="bg-light">
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>Issue Type</th>
+                        <th>Location</th>
+                        <th>Reported On</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
                 <tbody>
-                    {% if complaints %}{% for complaint in complaints %}{% include 'admin/_complaint_row.html' %}{% endfor %}{% else %}<tr><td colspan="6" class="text-center py-5"><p class="text-muted mb-0">No complaints match the current filters.</p></td></tr>{% endif %}
+
+                    {% if complaints %}
+                    {% for complaint in complaints %}
+                    {% include 'admin/_complaint_row.html' %}
+                    {% endfor %}
+                    {% else %}
+
+                    <tr>
+                        <td colspan="7" class="text-center py-5">
+                            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                            <p class="text-muted fw-bold">
+                                No complaints match the current filters.
+                            </p>
+                        </td>
+                    </tr>
+
+                    {% endif %}
+
                 </tbody>
+
             </table>
+
         </div>
+
     </div>
+
 </div>
 {% endblock %}
 
+
 {% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const issueCtx = document.getElementById('issueDoughnutChart');
-    if (issueCtx) {
-        new Chart(issueCtx, {
-            type: 'doughnut',
-            data: {
-                labels: {{ issue_labels|safe }},
-                datasets: [{
-                    label: 'Complaints',
-                    data: {{ issue_data|safe }},
-                    backgroundColor: ['#0d2a4c', '#fdb813', '#17a2b8', '#28a745', '#6c757d', '#dc3545'],
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'top',
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const issueCtx = document.getElementById("issueDoughnutChart");
+        if (issueCtx) {
+            let labels = [];
+            let dataCounts = [];
+            try {
+                labels = JSON.parse(document.getElementById("issue-labels-data").textContent);
+                dataCounts = JSON.parse(document.getElementById("issue-data-counts").textContent);
+            } catch (e) {
+                console.error("Error parsing chart data", e);
+            }
+
+            new Chart(issueCtx, {
+                type: "doughnut",
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: "Complaints",
+                        data: dataCounts,
+                        backgroundColor: [
+                            "#0b223f",
+                            "#e6a817",
+                            "#217fc4",
+                            "#2b8a3e",
+                            "#64748b",
+                            "#c92a2a"
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: "top"
+                        }
                     }
                 }
-            }
-        });
-    }
-});
+            });
+        }
+    });
+
 </script>
+
 {% endblock %}

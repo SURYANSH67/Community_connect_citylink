@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, SelectField, SubmitField
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from .models import IssueType, ComplaintStatus
+from .models import IssueType, ComplaintStatus, PriorityEnum
 from wtforms import StringField, PasswordField, BooleanField, HiddenField
 from wtforms.validators import DataRequired, Length, Optional, Email
 from wtforms.validators import  EqualTo, ValidationError
@@ -24,6 +24,15 @@ class ComplaintForm(FlaskForm):
             DataRequired(message="Please provide a description."),
             Length(min=20, max=500)
         ]
+    )
+    
+    priority_choices = [(p.name, p.value) for p in PriorityEnum]
+    
+    priority = SelectField(
+        'Priority Level',
+        choices=priority_choices,
+        default=PriorityEnum.LOW.name,
+        validators=[DataRequired(message="Please select a priority level.")]
     )
     address_text = StringField(
         'Location or Address',
@@ -73,23 +82,26 @@ class LoginForm(FlaskForm):
 class UpdateComplaintStatusForm(FlaskForm):
     """Form for admins to update a complaint's status."""
     status_choices = [(status.name, status.value) for status in ComplaintStatus]
+    priority_choices = [(p.name, p.value) for p in PriorityEnum]
+    
+    priority = SelectField(
+        'Update Priority',
+        choices=priority_choices,
+        validators=[DataRequired()]
+    )
     
     status = SelectField(
         'New Status',
         choices=status_choices,
         validators=[DataRequired()]
-        
-        
     )
-    #assigned_to = SelectField('Assign To Official', choices=[], validators=[DataRequired()])
+    
+    assigned_to = SelectField('Assign To Official', choices=[], coerce=int, validators=[DataRequired()])
+    
     admin_notes = TextAreaField(
         'Notes (Optional)',
         validators=[Optional(), Length(max=1000)]
     )
-    
-    assigned_to = SelectField('Assign To Official', choices=[], coerce=int, validators=[DataRequired()])
-
-    admin_notes = TextAreaField( ... )
     
     submit = SubmitField('Update Status & Assignment')
 

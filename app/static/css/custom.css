@@ -1,48 +1,63 @@
-/* ---
-   CityLink Connect - Professional Government Theme
-   Optimized Color Palette + Responsive Styling
---- */
+/* 
+   Community Connect - Academic Theme
+   -------------------------------------------------- */
 
 /* 1. Root Color Variables */
 :root {
-  --primary-color: #0d2a4c;
-  --accent-color: #fdb813;
-  --info-color: #48a9ee;
-  --danger-color: #dc3545;
-  --success-color: #28a745;
-  --light-bg: #f0f4f8;
-  --dark-bg: #212529;
-  --text-dark: #212529;
-  --text-muted: #6c757d;
+  --primary-color: #0b223f;
+  /* Darker Navy for Authority */
+  --accent-color: #e6a817;
+  /* Richer Gold */
+  --info-color: #217fc4;
+  --danger-color: #c92a2a;
+  --success-color: #2b8a3e;
+  --light-bg: #f8f9fa;
+  --dark-bg: #1e293b;
+  --text-dark: #111827;
+  --text-muted: #64748b;
+  --gov-banner-bg: #e2e8f0;
+  --gov-banner-text: #334155;
 }
 
 /* 2. Base Typography & Layout (with sticky footer and navbar fixes) */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Tinos:wght@400;700&display=swap');
 
-html, body {
-    height: 100%;
+html,
+body {
+  height: 100%;
 }
 
 body {
-    display: flex;
-    flex-direction: column; /* For sticky footer */
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--light-bg);
-    color: var(--text-dark);
-    /* This padding prevents content from being hidden by the fixed navbar */
-    padding-top: 70px; 
+  display: flex;
+  flex-direction: column;
+  /* For sticky footer */
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--light-bg);
+  color: var(--text-dark);
+  /* This padding prevents content from being hidden by the fixed navbar */
+  padding-top: 70px;
+  /* Reduced from 100px to fix large gap */
+  transition: background-color 0.3s, color 0.3s;
 }
 
-h1, h2, h3, h4, h5, h6, .navbar-brand {
-    font-family: 'Tinos', serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar-brand {
+  font-family: 'Tinos', serif;
 }
 
 main {
-    flex-shrink: 0; /* Part of the sticky footer solution */
+  flex-shrink: 0;
+  /* Part of the sticky footer solution */
 }
 
 /* 3. Navbar */
-.navbar { /* Target all navbars for consistency */
+.navbar {
+  /* Target all navbars for consistency */
   background-color: var(--primary-color) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -58,21 +73,23 @@ main {
 }
 
 .navbar .navbar-toggler-icon {
-  filter: brightness(150%); /* Make hamburger icon more visible */
+  filter: brightness(150%);
+  /* Make hamburger icon more visible */
 }
 
 /* Fix for dropdown menu text color */
 .navbar .dropdown-menu {
-    background-color: #f8f9fa; 
+  background-color: #f8f9fa;
 }
 
 .navbar .dropdown-item {
-    color: var(--text-dark) !important; 
+  color: var(--text-dark) !important;
 }
 
-.navbar .dropdown-item:hover, .navbar .dropdown-item:focus {
-    color: var(--text-dark) !important;
-    background-color: #e9ecef;
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus {
+  color: var(--text-dark) !important;
+  background-color: #e9ecef;
 }
 
 
@@ -81,32 +98,41 @@ main {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
 }
+
 .btn-primary:hover {
   background-color: #084298;
   border-color: #06357a;
 }
+
 .btn-outline-primary {
   color: var(--primary-color);
   border-color: var(--primary-color);
 }
+
 .btn-outline-primary:hover {
   background-color: var(--primary-color);
   color: #fff;
 }
+
 .text-primary {
   color: var(--primary-color) !important;
 }
+
 .badge.bg-primary {
   background-color: var(--primary-color) !important;
 }
 
 
 /* 5. Form Inputs */
-.form-control, .form-select {
-  border: 1px solid #ced4da; /* A slightly less thick border */
+.form-control,
+.form-select {
+  border: 1px solid #ced4da;
+  /* A slightly less thick border */
   background-color: #ffffff;
 }
-.form-control:focus, .form-select:focus {
+
+.form-control:focus,
+.form-select:focus {
   border-color: var(--info-color);
   box-shadow: 0 0 0 0.25rem rgba(72, 169, 238, 0.25);
 }
@@ -116,12 +142,13 @@ main {
 .card {
   border: none;
   border-radius: 0.5rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
+
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -133,32 +160,48 @@ main {
   border-radius: 0.375rem;
   color: #495057;
 }
+
 .stat-card .card-body {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem;
 }
+
 .stat-card .stat-text .stat-title {
   font-size: 1rem;
   font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
 }
+
 .stat-card .stat-text .stat-number {
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--text-dark);
   line-height: 1;
 }
+
 .stat-card .stat-icon {
   font-size: 2.75rem;
   opacity: 0.2;
 }
-.stat-card.border-primary { border-left-color: var(--primary-color) !important; }
-.stat-card.border-warning { border-left-color: var(--accent-color) !important; }
-.stat-card.border-info { border-left-color: var(--info-color) !important; }
-.stat-card.border-success { border-left-color: var(--success-color) !important; }
+
+.stat-card.border-primary {
+  border-left-color: var(--primary-color) !important;
+}
+
+.stat-card.border-warning {
+  border-left-color: var(--accent-color) !important;
+}
+
+.stat-card.border-info {
+  border-left-color: var(--info-color) !important;
+}
+
+.stat-card.border-success {
+  border-left-color: var(--success-color) !important;
+}
 
 
 /* 8. Footer */
@@ -166,15 +209,19 @@ main {
   padding: 1.5rem 0;
   background-color: var(--dark-bg);
   color: #adb5bd;
-  margin-top: auto; /* This is the magic for the sticky footer */
+  margin-top: auto;
+  /* This is the magic for the sticky footer */
 }
+
 .footer p {
   margin-bottom: 0.5rem;
 }
+
 .footer a {
   color: var(--accent-color);
   text-decoration: none;
 }
+
 .footer a:hover {
   text-decoration: underline;
 }
@@ -186,11 +233,13 @@ main {
   border-radius: 0.5rem;
   padding: 1.5rem;
   border: 1px solid #e9ecef;
-  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.04);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.04);
 }
+
 .table tbody tr:hover {
   background-color: #f8f9fa;
 }
+
 .table thead th {
   font-weight: 600;
   text-transform: uppercase;
@@ -199,7 +248,55 @@ main {
   letter-spacing: 0.5px;
   border: none;
 }
+
 .table tbody td {
   vertical-align: middle;
   border-top: 1px solid #dee2e6;
+}
+
+/* --- Form Input Enhancements --- */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.25rem rgba(230, 168, 23, 0.25);
+}
+
+/* Subtle Micro-Animations for Interactive Elements */
+.btn {
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+/* Form Validation UI Tweaks */
+.was-validated .form-control:valid,
+.form-control.is-valid {
+  border-color: var(--success-color);
+  padding-right: calc(1.5em + 0.75rem);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.1875rem) center;
+  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+  border-color: #dc3545;
+  padding-right: calc(1.5em + 0.75rem);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.1875rem) center;
+  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
 }

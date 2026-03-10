@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-md-5">
+                    <div class="text-center mb-5">
+                        <i class="fas fa-universal-access fa-3x text-primary mb-3"></i>
+                        <h1 class="display-5 fw-bold">Accessibility <span class="text-primary">Policy</span></h1>
+                        <p class="lead text-secondary">Our Commitment to an Inclusive Civic Platform</p>
+                    </div>
+
+                    <div class="content-section mb-4">
+                        <h3 class="fw-semibold mb-3 border-bottom pb-2">Our Commitment</h3>
+                        <p class="text-muted">
+                            The Community Connect academic project is committed to ensuring that our digital interfaces
+                            are
+                            accessible to all users, including those with disabilities. We continually strive to improve
+                            the user experience for everyone and apply the relevant accessibility standards.
+                        </p>
+                    </div>
+
+                    <div class="content-section mb-4">
+                        <h3 class="fw-semibold mb-3 border-bottom pb-2">Accessibility Features</h3>
+                        <p class="text-muted mb-2">To enhance user accessibility, CityLink Connect implements the
+                            following features:</p>
+                        <ul class="text-muted">
+                            <li><strong>High Contrast Mode:</strong> A dedicated toggle is available in the navigation
+                                bar to switch the website theme for users with visual impairments.</li>
+                            <li><strong>Keyboard Navigation:</strong> All essential features and forms can be navigated
+                                using a keyboard.</li>
+                            <li><strong>Screen Reader Support:</strong> We utilize ARIA (Accessible Rich Internet
+                                Applications) labels and structural HTML5 elements to ensure compatibility with screen
+                                readers.</li>
+                            <li><strong>Responsive Design:</strong> The platform is fully usable on mobile, tablet, and
+                                desktop devices.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="fw-semibold mb-3 border-bottom pb-2">Feedback and Support</h3>
+                        <p class="text-muted">
+                            We are continuously improving the accessibility of our website. If you encounter any
+                            barriers or have recommendations for improvement, please contact our support team.
+                        </p>
+                        <div class="mt-4 text-center">
+                            <a href="{{ url_for('main.support') }}"
+                                class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+                                <i class="fas fa-envelope me-2"></i>Contact Support
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

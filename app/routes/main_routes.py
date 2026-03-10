@@ -37,9 +37,11 @@ def submit_complaint():
             image_filename = os.path.join('uploads', filename)
 
         # 2. Create the new complaint object
+        from app.models import PriorityEnum
         new_complaint = Complaint(
             ticket_id=generate_ticket_id(),
             issue_type=IssueType[form.issue_type.data],
+            priority=PriorityEnum[form.priority.data],
             description=form.description.data,
             address_text=form.address_text.data,
             latitude=form.latitude.data or None,
@@ -97,6 +99,13 @@ def track_complaint():
 def support():
     return render_template('support.html', title="Support")
 
+@main_bp.route('/accessibility')
+def accessibility():
+    return render_template('accessibility.html', title="Accessibility Policy")
+
+@main_bp.route('/privacy')
+def privacy():
+    return render_template('privacy.html', title="Privacy & Security")
 
 @main_bp.route('/service-worker.js')
 def service_worker():

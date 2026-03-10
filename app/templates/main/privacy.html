@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-md-5">
+                    <div class="text-center mb-5">
+                        <i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
+                        <h1 class="display-5 fw-bold">Privacy & <span class="text-success">Security</span></h1>
+                        <p class="lead text-secondary">How we protect your data and maintain trust</p>
+                    </div>
+
+                    <div class="content-section mb-4">
+                        <h3 class="fw-semibold mb-3 border-bottom pb-2">1. Information Collection</h3>
+                        <p class="text-muted">
+                            When you report an issue via CityLink Connect, we collect the necessary information to
+                            resolve the problem effectively. This may include the issue description, geographic
+                            coordinates, photographic evidence, and optionally, your name, email, and phone number to
+                            provide status updates. We do not collect unnecessary sensitive personal data.
+                        </p>
+                    </div>
+
+                    <div class="content-section mb-4">
+                        <h3 class="fw-semibold mb-3 border-bottom pb-2">2. Data Usage & Sharing</h3>
+                        <p class="text-muted">
+                            The information collected is used strictly for platform demonstration—to review, categorize,
+                            and manage civic complaints within the system. We do not sell or rent your personal
+                            information to
+                            third parties. Data may be shared with designated platform administrators
+                            solely for the purpose of demonstrating the resolution workflow.
+                        </p>
+                    </div>
+
+                    <div class="content-section mb-4">
+                        <h3 class="fw-semibold mb-3 border-bottom pb-2">3. Security Measures</h3>
+                        <p class="text-muted">
+                            CityLink Connect implements robust technical security measures to protect against
+                            unauthorized access or alteration of user data. This includes secure HTTPS encryption for
+                            all data transport, encrypted password storage using modern hashing algorithms, and strict
+                            access controls for administrative dashboards.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="fw-semibold mb-3 border-bottom pb-2">4. Your Rights</h3>
+                        <p class="text-muted">
+                            As a user, you have the right to request the deletion of your account. Note that removing
+                            your account may anonymize previously submitted test complaints rather than
+                            delete them entirely, to maintain the operational history of the project.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

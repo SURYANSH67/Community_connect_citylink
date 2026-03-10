@@ -1,25 +1,36 @@
 <tr>
     <td>
-        <a href="{{ url_for('admin.complaint_detail', complaint_id=complaint.id) }}" class="ticket-id">{{ complaint.ticket_id }}</a>
+        <a href="{{ url_for('admin.complaint_detail', complaint_id=complaint.id) }}" class="ticket-id">{{
+            complaint.ticket_id }}</a>
     </td>
     <td>{{ complaint.issue_type.value }}</td>
     <td>{{ complaint.address_text }}</td>
     <td>{{ complaint.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
     <td>
-        {% if complaint.status.name == 'PENDING' %}
-            <!-- Added text-dark for better readability on yellow background -->
-            <span class="badge bg-warning text-dark">{{ complaint.status.value }}</span>
-        {% elif complaint.status.name == 'IN_PROGRESS' %}
-            <span class="badge bg-info text-dark">{{ complaint.status.value }}</span>
-        {% elif complaint.status.name == 'RESOLVED' %}
-            <span class="badge bg-success">{{ complaint.status.value }}</span>
-        {% elif complaint.status.name == 'REJECTED' %}
-            <span class="badge bg-danger">{{ complaint.status.value }}</span>
+        {% if complaint.priority.name == 'HIGH' %}
+        <span class="badge bg-danger"><i class="fas fa-exclamation-triangle me-1"></i>High</span>
+        {% elif complaint.priority.name == 'MEDIUM' %}
+        <span class="badge bg-warning text-dark">Medium</span>
         {% else %}
-             <span class="badge bg-secondary">{{ complaint.status.value }}</span>
+        <span class="badge bg-secondary">Low</span>
         {% endif %}
     </td>
     <td>
-        <a href="{{ url_for('admin.complaint_detail', complaint_id=complaint.id) }}" class="btn btn-sm btn-outline-primary">View / Edit</a>
+        {% if complaint.status.name == 'PENDING' %}
+        <!-- Added text-dark for better readability on yellow background -->
+        <span class="badge bg-warning text-dark">{{ complaint.status.value }}</span>
+        {% elif complaint.status.name == 'IN_PROGRESS' %}
+        <span class="badge bg-info text-dark">{{ complaint.status.value }}</span>
+        {% elif complaint.status.name == 'RESOLVED' %}
+        <span class="badge bg-success">{{ complaint.status.value }}</span>
+        {% elif complaint.status.name == 'REJECTED' %}
+        <span class="badge bg-danger">{{ complaint.status.value }}</span>
+        {% else %}
+        <span class="badge bg-secondary">{{ complaint.status.value }}</span>
+        {% endif %}
+    </td>
+    <td>
+        <a href="{{ url_for('admin.complaint_detail', complaint_id=complaint.id) }}"
+            class="btn btn-sm btn-outline-primary">View / Edit</a>
     </td>
 </tr>

@@ -1,13 +1,14 @@
 <p>Dear {{ name or 'Citizen' }},</p>
 
-<p>We would like to inform you that there has been an update regarding your submitted report with Ticket ID <strong>{{ ticket_id }}</strong>.</p>
+<p>We would like to inform you that there has been an update regarding your submitted report with Ticket ID <strong>{{
+        ticket_id }}</strong>.</p>
 
 <p>
     <strong>Current Status:</strong> {{ new_status }}
 </p>
 
 {% if notes %}
-<p><strong>Remarks from the reviewing official:</strong></p>
+<p><strong>Remarks from the reviewing administrator:</strong></p>
 <p><em>{{ notes }}</em></p>
 {% endif %}
 

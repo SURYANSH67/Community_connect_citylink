@@ -2,116 +2,83 @@
 
 {% block content %}
 
+
+
 <!-- 1. Hero Section -->
-<div class="px-5 py-9 my-5 text-center bg-white rounded-3 shadow-sm border">
-    <h1 class="display-5 fw-bold text-body-emphasis">Improve Your Community</h1>
-    <div class="col-lg-8 mx-auto">
-        <p class="lead mb-4">
-            Welcome to the official portal for reporting non-emergency civic issues. See a pothole, broken streetlight, or overflowing bin? Report it here and help us take action.
-        </p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a href="{{ url_for('main.submit_complaint') }}" type="button" class="btn btn-primary btn-lg px-4 gap-3">
-                <i class="fas fa-bullhorn me-2"></i>Submit a New Report
-            </a>
-            <a href="{{ url_for('main.track_complaint') }}" type="button" class="btn btn-outline-secondary btn-lg px-4">
-                <i class="fas fa-search me-2"></i>Track an Existing Report
-            </a>
-            <!-- === ADD THIS NEW BUTTON === -->
-    <button type="button" class="btn btn-outline-success btn-lg px-4" data-bs-toggle="modal" data-bs-target="#installModal">
-        <i class="fas fa-mobile-alt me-2"></i>Install on Mobile
-    </button>
+<div class="px-5 py-5 my-4 text-center text-white rounded-3 shadow border-0 position-relative overflow-hidden"
+    style="background: linear-gradient(135deg, var(--primary-color) 0%, #1e4b85 100%);">
+    <div class="position-relative z-index-1">
+        <h1 class="display-4 fw-bold">Community Connect</h1>
+        <h2 class="h3 text-warning mb-4 font-italic" style="font-family: 'Tinos', serif;">Civic Reporting Platform
+        </h2>
+        <div class="col-lg-8 mx-auto">
+            <p class="lead mb-4 fw-light">
+                Help us keep our city safe and clean. Report non-emergency civic issues like potholes, broken
+                streetlights, or waste accumulation online. Your reports go directly to the responsible system
+                department.
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-5">
+                <a href="{{ url_for('main.submit_complaint') }}" type="button"
+                    class="btn btn-warning btn-lg px-4 gap-3 fw-bold text-dark">
+                    <i class="fas fa-bullhorn me-2"></i>Submit a Report
+                </a>
+                <a href="{{ url_for('main.track_complaint') }}" type="button" class="btn btn-outline-light btn-lg px-4">
+                    <i class="fas fa-search me-2"></i>Track Status
+                </a>
+            </div>
         </div>
     </div>
+    <!-- Decorative background icon -->
+    <i class="fas fa-city position-absolute text-white"
+        style="font-size: 15rem; opacity: 0.05; right: -2rem; bottom: -2rem; z-index: 0;"></i>
 </div>
 
 <!-- 2. "How It Works" Feature Section -->
 <div class="container px-4 py-5" id="featured-3">
-    <h2 class="pb-2 border-bottom text-center">A Simple, Transparent Process</h2>
+    <h2 class="pb-2 border-bottom text-center fw-bold">Reporting Process Workflow</h2>
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
         <div class="feature col text-center">
-            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3" style="width: 4rem; height: 4rem; border-radius: 0.75rem;">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-white bg-primary fs-2 mb-3 shadow"
+                style="width: 4.5rem; height: 4.5rem; border-radius: 50%;">
                 <i class="fas fa-mouse-pointer"></i>
             </div>
-            <h3 class="fs-2 text-body-emphasis">Step 1: Report</h3>
-            <p>Quickly submit a report using our simple form. Provide a location, description, and an optional photo directly from your phone or computer.</p>
+            <h3 class="fs-4 text-body-emphasis fw-bold">1. Submit Request</h3>
+            <p class="text-muted">Provide accurate location details, a clear description, and photographic evidence of
+                the issue using our secure online form.</p>
         </div>
         <div class="feature col text-center">
-            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3" style="width: 4rem; height: 4rem; border-radius: 0.75rem;">
-                <i class="fas fa-clipboard-list"></i>
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-white bg-primary fs-2 mb-3 shadow"
+                style="width: 4.5rem; height: 4.5rem; border-radius: 50%;">
+                <i class="fas fa-clipboard-check"></i>
             </div>
-            <h3 class="fs-2 text-body-emphasis">Step 2: Review</h3>
-            <p>Your submission is instantly assigned a unique ticket ID and routed to the correct municipal department for assessment and prioritization.</p>
+            <h3 class="fs-4 text-body-emphasis fw-bold">2. City Review</h3>
+            <p class="text-muted">Your report receives a tracking ID and is routed to the corresponding system
+                department
+                module for assessment and scheduling.</p>
         </div>
         <div class="feature col text-center">
-            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3" style="width: 4rem; height: 4rem; border-radius: 0.75rem;">
-                <i class="fas fa-tasks"></i>
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-white bg-primary fs-2 mb-3 shadow"
+                style="width: 4.5rem; height: 4.5rem; border-radius: 50%;">
+                <i class="fas fa-tools"></i>
             </div>
-            <h3 class="fs-2 text-body-emphasis">Step 3: Resolve</h3>
-            <p>Track the progress of your report online using your ticket ID. We are committed to resolving issues efficiently and keeping our community informed.</p>
+            <h3 class="fs-4 text-body-emphasis fw-bold">3. Resolution</h3>
+            <p class="text-muted">Track progress online. City crews will address the issue prioritized by safety impact
+                and available resources.</p>
         </div>
     </div>
 </div>
 
 <!-- 3. Final Call to Action -->
-<div class="bg-light p-5 rounded-3 text-center">
-    <h2 class="text-body-emphasis">Ready to make a difference?</h2>
+<div class="bg-light p-5 rounded-3 text-center border-top border-warning border-3">
+    <h2 class="text-body-emphasis fw-bold">Help Maintain Public Infrastructure</h2>
     <p class="col-lg-8 mx-auto fs-5 text-muted">
-        Your reports are invaluable. They help us allocate resources effectively and maintain the quality of our public spaces.
+        Citizen reporting is a vital component of community maintenance. By notifying us of issues, you help allocate
+        resources effectively.
     </p>
-    <a href="{{ url_for('main.submit_complaint') }}" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill mt-3" type="button">
-        Create a Report Now
+    <a href="{{ url_for('main.submit_complaint') }}"
+        class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 mt-3 shadow-sm" type="button">
+        Start Reporting
     </a>
 </div>
 
-<!-- === ADD THE QR CODE MODAL === -->
-<div class="modal fade" id="installModal" tabindex="-1" aria-labelledby="installModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="installModalLabel">Install on Your Mobile Device</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body text-center">
-        <p>Scan the QR code below with your phone's camera to open this app on your mobile device.</p>
-        
-        <!-- The QR code will be generated inside this div -->
-        <div id="qrcode" class="d-flex justify-content-center p-3"></div>
-
-        <p class="mt-3 text-muted">Once the page loads on your phone, look for the "Add to Home Screen" or "Install App" option in your browser's menu.</p>
-      </div>
-    </div>
-  </div>
-</div>
-{% endblock %}
-
-
-{% block scripts %}
-<script>
-    // Find the modal element
-    const installModal = document.getElementById('installModal');
-    // Find the div where the QR code will be placed
-    const qrcodeContainer = document.getElementById('qrcode');
-    let qrCodeGenerated = false;
-
-    // Listen for the event when the modal is about to be shown
-    installModal.addEventListener('show.bs.modal', function (event) {
-        // Only generate the QR code once to prevent duplicates
-        if (!qrCodeGenerated) {
-            // Get the current URL of the page
-            const currentUrl = window.location.href;
-            console.log("Generating QR code for URL:", currentUrl);
-
-            // Create a new QRCode object
-            new QRCode(qrcodeContainer, {
-                text: currentUrl,
-                width: 200,
-                height: 200,
-                colorDark : "#000000",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
-            });
-            qrCodeGenerated = true;
-        }
-    });
-</script>
 {% endblock %}

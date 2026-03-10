@@ -1,7 +1,7 @@
 {% extends "layouts/base.html" %}
 
 {% block content %}
-<div class="container my-5">
+<div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="card border-0 shadow-lg rounded-4">
@@ -15,7 +15,11 @@
 
                     <h3 class="fw-semibold mb-3">Our Mission</h3>
                     <p class="text-muted fs-5">
-                        <strong>CityLink Connect</strong> is a citizen-first civic-tech platform designed to promote transparency, accountability, and community participation. Our goal is to empower residents to report non-emergency civic issues efficiently and to enable government departments to respond swiftly and transparently. Together, we aim to build a smarter, safer, and more sustainable city.
+                        <strong>CityLink Connect</strong> is a citizen-first civic-tech platform designed to promote
+                        transparency, accountability, and community participation. Our goal is to empower residents to
+                        report non-emergency civic issues efficiently and to enable system administrators to respond
+                        swiftly and transparently. Together, we aim to build a smarter, safer, and more sustainable
+                        city.
                     </p>
 
                     <hr class="my-5">
@@ -26,21 +30,26 @@
                             <div class="p-4 h-100 border rounded-4 shadow-sm hover-shadow transition">
                                 <i class="fas fa-bullhorn fa-3x text-primary mb-3"></i>
                                 <h5 class="fw-bold">1. Submit a Report</h5>
-                                <p class="text-muted">Use our intuitive online form to report issues such as potholes, garbage dumping, or damaged infrastructure. Add a location, description, and image if available.</p>
+                                <p class="text-muted">Use our intuitive online form to report issues such as potholes,
+                                    garbage dumping, or damaged infrastructure. Add a location, description, and image
+                                    if available.</p>
                             </div>
                         </div>
                         <div class="col-md-4 mb-4">
                             <div class="p-4 h-100 border rounded-4 shadow-sm hover-shadow transition">
                                 <i class="fas fa-clipboard-check fa-3x text-success mb-3"></i>
                                 <h5 class="fw-bold">2. Review & Assign</h5>
-                                <p class="text-muted">Each complaint is assigned a tracking ID and routed to the appropriate municipal department for action, ensuring timely and structured follow-up.</p>
+                                <p class="text-muted">Each complaint is assigned a tracking ID and routed to the
+                                    appropriate system administrators for action, ensuring timely and structured
+                                    follow-up.</p>
                             </div>
                         </div>
                         <div class="col-md-4 mb-4">
                             <div class="p-4 h-100 border rounded-4 shadow-sm hover-shadow transition">
                                 <i class="fas fa-chart-line fa-3x text-info mb-3"></i>
                                 <h5 class="fw-bold">3. Track Progress</h5>
-                                <p class="text-muted">Monitor the status of your report in real-time—from submission to resolution—through your unique tracking ID on the platform.</p>
+                                <p class="text-muted">Monitor the status of your report in real-time—from submission to
+                                    resolution—through your unique tracking ID on the platform.</p>
                             </div>
                         </div>
                     </div>
@@ -49,9 +58,12 @@
 
                     <div class="text-center">
                         <p class="text-muted mb-3">
-                            <strong>CityLink Connect</strong> is a civic service powered by the <strong>Nagar Palika Parishad Sitapur, Department of Public Works</strong> to enhance responsive governance and public engagement.
+                            <strong>Community Connect</strong> is an academic concept project designed to demonstrate
+                            modern civic-tech responsive governance and
+                            public engagement systems.
                         </p>
-                        <a href="{{ url_for('main.submit_complaint') }}" class="btn btn-lg btn-gradient-primary px-4 py-2 mt-2">
+                        <a href="{{ url_for('main.submit_complaint') }}"
+                            class="btn btn-lg btn-gradient-primary px-4 py-2 mt-2">
                             Report an Issue Now
                         </a>
                     </div>
@@ -68,15 +80,18 @@
         transform: translateY(-5px);
         transition: all 0.3s ease;
     }
+
     .transition {
         transition: all 0.3s ease;
     }
+
     .btn-gradient-primary {
         background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
         color: #fff;
         border: none;
         border-radius: 50px;
     }
+
     .btn-gradient-primary:hover {
         background: linear-gradient(135deg, #0056b3 0%, #004080 100%);
     }

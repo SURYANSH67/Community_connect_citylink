@@ -7,8 +7,8 @@
             <div class="card-body p-4">
                 <div class="text-center mb-4">
                     <i class="fas fa-user-shield fa-3x text-primary mb-3"></i>
-                    <h2 class="card-title fw-bold">Official Login</h2>
-                    <p class="text-muted small">Authorized personnel access only.</p>
+                    <h2 class="card-title fw-bold">Admin Login</h2>
+                    <p class="text-muted small">Authorized system administrators only.</p>
                 </div>
 
                 <form method="POST" action="" novalidate>
@@ -16,9 +16,9 @@
 
                     <div class="mb-3">
                         {{ form.email.label(class="form-label fw-semibold") }}
-                        {{ form.email(class="form-control form-control-lg", placeholder="official@example.com") }}
+                        {{ form.email(class="form-control form-control-lg", placeholder="admin@communityconnect.org") }}
                         {% for error in form.email.errors %}
-                            <div class="text-danger small mt-1">{{ error }}</div>
+                        <div class="text-danger small mt-1">{{ error }}</div>
                         {% endfor %}
                     </div>
 
@@ -26,7 +26,7 @@
                         {{ form.password.label(class="form-label fw-semibold") }}
                         {{ form.password(class="form-control form-control-lg") }}
                         {% for error in form.password.errors %}
-                            <div class="text-danger small mt-1">{{ error }}</div>
+                        <div class="text-danger small mt-1">{{ error }}</div>
                         {% endfor %}
                     </div>
 

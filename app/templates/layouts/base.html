@@ -1,173 +1,230 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} | CityLink Connect</title>
-    
-    <!-- Google Font for a modern look -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} | CityLink Connect</title>
 
-    <!-- Bootstrap & Font Awesome -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Font for a modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+  <!-- Bootstrap & Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- PWA / Icons -->
-    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
-    <meta name="theme-color" content="#0d2a4c">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="CityLink">
-    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/icon-192.png') }}">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-        }
-        .navbar-brand i {
-            margin-right: 8px;
-        }
-        .flash-message {
-            animation: fadeInDown 0.5s;
-        }
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .footer {
-            background-color: #0d2a4c;
-            color: white;
-        }
-        .footer a {
-            color: #cddfff;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <!-- PWA / Icons -->
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+  <meta name="theme-color" content="#0d2a4c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="CityLink">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/icon-192.png') }}">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .navbar-brand i {
+      margin-right: 8px;
+    }
+
+    .flash-message {
+      animation: fadeInDown 0.5s;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .footer {
+      background-color: #0d2a4c;
+      color: white;
+    }
+
+    .footer a {
+      color: #cddfff;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 
 <body class="d-flex flex-column h-100">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top dark-navbar shadow-sm">
-  <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="{{ url_for('main.index') }}">
-      <i class="fas fa-city fa-lg me-2 text-warning"></i>
-      <span class="fw-bold text-light">CityLink Connect</span>
-    </a>
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <!-- Reserved area for future alerts -->
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.index') }}">Home</a></li>
-        <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.submit_complaint') }}">Submit</a></li>
-        <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.track_complaint') }}">Track</a></li>
-        <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.about') }}">About</a></li>
-      </ul>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="{{ url_for('main.index') }}">
+        <i class="fas fa-city fa-lg me-2 text-warning"></i>
+        <span class="fw-bold text-light">CityLink Connect</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-      <ul class="navbar-nav ms-auto align-items-center">
-        {% if current_user.is_authenticated %}
-        <!-- === NEW DROPDOWN FOR LOGGED-IN USERS === -->
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fas fa-user-circle me-1"></i>
-                Hi, {{ current_user.name.split()[0] }} <!-- Shows the user's first name -->
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUserDropdown">
-                <!-- Link for Admin/Official -->
-                {% if current_user.role in ['Admin', 'Official'] %}
-            <li class="nav-item">
-              <a class="nav-link text-black" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
-            </li>
-          {% else %}
-            <li class="nav-item">
-              <a class="nav-link text-light" href="{{ url_for('auth.account') }}">My Account</a>
-            </li>
-          {% endif %}
-          <li class="nav-item">
-            <a class="btn btn-sm btn-outline-dark ms-2" href="{{ url_for('auth.logout') }}">Logout</a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.index') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.submit_complaint') }}">Submit</a>
           </li>
-        {% else %}
+          <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.track_complaint') }}">Track</a>
+          </li>
+          <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.about') }}">About</a></li>
+        </ul>
+
+        <ul class="navbar-nav ms-auto align-items-center">
+          {% if current_user.is_authenticated %}
+          <!-- === NEW DROPDOWN FOR LOGGED-IN USERS === -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarUserDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-user-circle me-1"></i>
+              Hi, {{ current_user.name.split()[0] }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="navbarUserDropdown"
+              style="min-width: 12rem; border-radius: 0.5rem; overflow: hidden; padding: 0;">
+              <!-- Link for Admin/Official -->
+              {% if current_user.role in ['Admin', 'Official'] %}
+              <li>
+                <a class="dropdown-item py-2 px-3 fw-medium" href="{{ url_for('admin.dashboard') }}">
+                  <i class="fas fa-tachometer-alt text-primary me-2"></i>Dashboard
+                </a>
+              </li>
+              {% else %}
+              <li>
+                <a class="dropdown-item py-2 px-3 fw-medium" href="{{ url_for('auth.account') }}">
+                  <i class="fas fa-user text-primary me-2"></i>My Account
+                </a>
+              </li>
+              {% endif %}
+              <li>
+                <hr class="dropdown-divider m-0">
+              </li>
+              <li>
+                <a class="dropdown-item py-2 px-3 fw-medium text-danger" href="{{ url_for('auth.logout') }}">
+                  <i class="fas fa-sign-out-alt me-2"></i>Logout
+                </a>
+              </li>
+            </ul>
+          </li>
+          {% else %}
           <li class="nav-item">
             <a class="nav-link text-light" href="{{ url_for('auth.public_login') }}">Login</a>
           </li>
-          <li class="nav-item">
-            <a href="{{ url_for('auth.register') }}" class="btn btn-sm btn-outline-light ms-2">Sign Up</a>
+          <li class="nav-item d-flex align-items-center">
+            <a href="{{ url_for('auth.register') }}" class="btn btn-sm btn-outline-light ms-2 px-3 rounded-pill">Sign
+              Up</a>
           </li>
-          <li class="nav-item">
-            <a href="{{ url_for('auth.admin_login') }}" class="btn btn-sm btn-warning ms-2">Admin Login</a>
+          <li class="nav-item d-flex align-items-center">
+            <a href="{{ url_for('auth.admin_login') }}"
+              class="btn btn-sm btn-warning ms-2 px-3 text-dark fw-bold rounded-pill shadow-sm">
+              <i class="fas fa-user-shield me-1"></i>Admin Login
+            </a>
           </li>
-        {% endif %}
-      </ul>
+          {% endif %}
+
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-    <!-- Main content -->
-    <main class="flex-shrink-0 mt-5 pt-4">
-        <div class="container">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }} alert-dismissible fade show flash-message mt-2" role="alert">
-                            {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+  <!-- Main content -->
+  <main class="flex-shrink-0 mt-5">
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show flash-message mt-2" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
 
-            {% block content %}{% endblock %}
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer mt-auto py-4">
+    <div class="container">
+      <div class="row text-center text-md-start">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <div class="d-flex align-items-center justify-content-center justify-content-md-start mb-2">
+            <i class="fas fa-city fa-2x text-warning me-2"></i>
+            <h5 class="mb-0 text-white">CityLink Connect</h5>
+          </div>
+          <p class="small text-muted mb-0">Academic Concept Project for Civic Engagement</p>
+          <p class="small text-muted mb-0">© 2025 Community Connect (Academic Project). All rights reserved.</p>
         </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer mt-auto py-3">
-        <div class="container text-center">
-            <p class="mb-2">© 2025 Nagar Palika Parishad Sitapur — All Rights Reserved.</p>
-            <p class="mb-0">
-                <a href="#">Privacy Policy</a> |
-                <a href="#">Terms of Service</a> |
-                <a href="{{ url_for('main.support') }}">Support & Contact</a>
-            </p>
+        <div class="col-md-6 text-md-end">
+          <ul class="list-inline mb-2">
+            <li class="list-inline-item"><a href="{{ url_for('main.accessibility') }}"
+                class="text-white-50 small text-decoration-none">Accessibility
+                Policy</a></li>
+            <li class="list-inline-item text-muted">|</li>
+            <li class="list-inline-item"><a href="{{ url_for('main.privacy') }}"
+                class="text-white-50 small text-decoration-none">Privacy &
+                Security</a></li>
+            <li class="list-inline-item text-muted">|</li>
+            <li class="list-inline-item"><a href="{{ url_for('main.support') }}"
+                class="text-white-50 small text-decoration-none">Contact Us</a></li>
+          </ul>
+          <p class="small text-warning mb-0"><i class="fas fa-phone-alt me-1"></i> Emergency? Call 112</p>
         </div>
-    </footer>
+      </div>
+    </div>
+  </footer>
 
-    <!-- JS Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <!-- JS Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
-    <!-- Auto-dismiss flash messages -->
-    <script>
-        window.addEventListener('load', function () {
-            const messages = document.querySelectorAll('.flash-message');
-            messages.forEach(msg => {
-                setTimeout(() => {
-                    const alert = new bootstrap.Alert(msg);
-                    alert.close();
-                }, 500);
-            });
-        });
-    </script>
+  <!-- Auto-dismiss flash messages -->
+  <script>
+    window.addEventListener('load', function () {
+      const messages = document.querySelectorAll('.flash-message');
+      messages.forEach(msg => {
+        setTimeout(() => {
+          const alert = new bootstrap.Alert(msg);
+          alert.close();
+        }, 500);
+      });
+    });
+  </script>
 
-    <!-- PWA Support -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register("{{ url_for('static', filename='service-worker.js') }}")
-                .then(reg => console.log('Service Worker registered:', reg.scope))
-                .catch(err => console.error('Service Worker failed:', err));
-        }
-    </script>
+  <!-- PWA Support -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register("{{ url_for('static', filename='service-worker.js') }}")
+        .then(reg => console.log('Service Worker registered:', reg.scope))
+        .catch(err => console.error('Service Worker failed:', err));
+    }
 
-    {% block scripts %}{% endblock %}
+  </script>
+
+  {% block scripts %}{% endblock %}
 </body>
+
 </html>

@@ -50,6 +50,12 @@ class ComplaintStatus(enum.Enum):
     REJECTED = "Rejected"
 
 
+class PriorityEnum(enum.Enum):
+    LOW = "Low"
+    MEDIUM = "Medium"
+    HIGH = "High"
+
+
 class Complaint(db.Model):
     """Complaint model."""
 
@@ -61,6 +67,8 @@ class Complaint(db.Model):
     # Using Enum for controlled vocabulary
     issue_type = db.Column(db.Enum(IssueType), nullable=False)
     description = db.Column(db.Text, nullable=False)
+    
+    priority = db.Column(db.Enum(PriorityEnum), nullable=False, default=PriorityEnum.LOW)
 
     latitude = db.Column(db.Float, nullable=True)
     longitude = db.Column(db.Float, nullable=True)

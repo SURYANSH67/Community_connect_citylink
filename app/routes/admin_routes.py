@@ -9,7 +9,7 @@ from sqlalchemy import or_, func, extract
 
 # Local Application Imports
 from .. import db
-from ..models import Complaint, IssueType, ComplaintStatus, User
+from ..models import Complaint, IssueType, ComplaintStatus, User, PriorityEnum
 from ..forms import ComplaintFilterForm, UpdateComplaintStatusForm
 from ..services.email_service import email_sender
 
@@ -110,6 +110,7 @@ def complaint_detail(complaint_id):
 
     if form.validate_on_submit():
         complaint.status = ComplaintStatus[form.status.data]
+        complaint.priority = PriorityEnum[form.priority.data]
         complaint.admin_notes = form.admin_notes.data
 
         if "assigned_to" in form:
@@ -137,6 +138,7 @@ def complaint_detail(complaint_id):
 
     elif request.method == "GET":
         form.status.data = complaint.status.name
+        form.priority.data = complaint.priority.name
         form.admin_notes.data = complaint.admin_notes
         if "assigned_to" in form:
             form.assigned_to.data = complaint.assigned_to_id or 0

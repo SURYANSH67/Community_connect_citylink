@@ -1,73 +1,106 @@
 {% extends "layouts/base.html" %}
 
 {% block content %}
-<div class="container my-5">
+<div class="container py-4">
+
+
     <div class="row justify-content-center">
         <div class="col-lg-9 col-md-10">
 
             <!-- Card Wrapper -->
-            <div class="card border-0 shadow rounded-4">
+            <div class="card border-0 shadow-sm rounded-4 hover-lift">
                 <div class="card-body p-4 p-md-5">
 
                     <!-- Form Header -->
-                    <div class="text-center mb-5">
-                        <i class="fas fa-file-alt fa-3x text-primary mb-3"></i>
-                        <h2 class="card-title fw-semibold">Submit a Complaint</h2>
-                        <p class="text-muted mb-0">Provide accurate details to help us respond quickly.</p>
+                    <div class="text-center mb-5 border-bottom pb-4">
+                        <i class="fas fa-file-signature fa-3x text-primary mb-3"></i>
+                        <h2 class="card-title fw-bold" style="font-family: 'Tinos', serif;">Civic Issue Report
+                        </h2>
+                        <p class="text-muted mb-0">Please provide accurate details to ensure a prompt assessment by
+                            system administrators.</p>
+                        <div class="alert alert-warning mt-3 mb-0 small text-start">
+                            <i class="fas fa-info-circle me-1"></i> <strong>Note:</strong> All submissions are recorded.
+                            False reporting may delay services for legitimate community needs.
+                        </div>
                     </div>
 
-                    <form method="POST" action="" enctype="multipart/form-data" novalidate>
+                    <form method="POST" action="" enctype="multipart/form-data" class="needs-validation" novalidate>
                         {{ form.hidden_tag() }}
                         {{ form.latitude(id="latitude") }}
                         {{ form.longitude(id="longitude") }}
 
                         <!-- Section 1: Issue Details -->
-                        <h5 class="mb-3 mt-4 text-primary fw-bold border-bottom pb-2">1. Issue Details</h5>
+                        <h5 class="mb-3 mt-4 text-primary fw-bold bg-light p-2 border-start border-primary border-4">1.
+                            Issue Classification</h5>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                {{ form.issue_type.label(class="form-label") }}
-                                {{ form.issue_type(class="form-select") }}
-                                {% for error in form.issue_type.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+                                {{ form.issue_type.label(class="form-label fw-semibold text-muted small text-uppercase")
+                                }}
+                                {{ form.issue_type(class="form-select shadow-sm", required=True) }}
+                                {% for error in form.issue_type.errors %}<div class="invalid-feedback d-block">{{ error
+                                    }}</div>{% endfor %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.priority.label(class="form-label fw-semibold text-muted small text-uppercase")
+                                }}
+                                {{ form.priority(class="form-select shadow-sm border-warning", required=True) }}
+                                {% for error in form.priority.errors %}<div class="invalid-feedback d-block">{{ error }}
+                                </div>{% endfor %}
+                                <div class="form-text small text-muted"><i
+                                        class="fas fa-exclamation-triangle text-warning"></i> For life-threatening
+                                    emergencies, call 112 immediately.</div>
                             </div>
                         </div>
                         <div class="mb-4">
-                            {{ form.description.label(class="form-label") }}
-                            {{ form.description(class="form-control", rows=5, placeholder="Describe the issue in detail...") }}
-                            {% for error in form.description.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+                            {{ form.description.label(class="form-label fw-semibold text-muted small text-uppercase") }}
+                            {{ form.description(class="form-control shadow-sm", rows=5, placeholder="Describe the issue
+                            in detail...", required=True) }}
+                            {% for error in form.description.errors %}<div class="invalid-feedback d-block">{{ error }}
+                            </div>{% endfor %}
                         </div>
 
                         <!-- Section 2: Location & Evidence -->
-                        <h5 class="mb-3 mt-4 text-primary fw-bold border-bottom pb-2">2. Location & Evidence</h5>
+                        <h5 class="mb-3 mt-4 text-primary fw-bold bg-light p-2 border-start border-primary border-4">2.
+                            Location & Evidence</h5>
                         <div class="mb-3">
-                            {{ form.address_text.label(class="form-label") }}
-                            {{ form.address_text(class="form-control", id="autocomplete", placeholder="Start typing an address...") }}
+                            {{ form.address_text.label(class="form-label fw-semibold text-muted small text-uppercase")
+                            }}
+                            {{ form.address_text(class="form-control shadow-sm", id="autocomplete", placeholder="Start
+                            typing an address...", required=True) }}
                             <div class="form-text">Select a valid address from the suggestions.</div>
-                            {% for error in form.address_text.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+                            {% for error in form.address_text.errors %}<div class="invalid-feedback d-block">{{ error }}
+                            </div>{% endfor %}
                         </div>
                         <div class="mb-4">
-                            {{ form.photo.label(class="form-label") }}
-                            {{ form.photo(class="form-control") }}
-                            {% for error in form.photo.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+                            {{ form.photo.label(class="form-label fw-semibold text-muted small text-uppercase") }}
+                            {{ form.photo(class="form-control shadow-sm") }}
+                            {% for error in form.photo.errors %}<div class="invalid-feedback d-block">{{ error }}</div>
+                            {% endfor %}
                         </div>
 
                         <!-- Section 3: Contact Info -->
-                        <h5 class="mb-3 mt-4 text-primary fw-bold border-bottom pb-2">3. Contact Information <small class="text-muted">(Optional)</small></h5>
+                        <h5 class="mb-3 mt-4 text-primary fw-bold bg-light p-2 border-start border-primary border-4">3.
+                            Reporter Details <small class="text-muted fw-normal">(Optional but Recommended)</small></h5>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                {{ form.reported_by_name.label(class="form-label") }}
-                                {{ form.reported_by_name(class="form-control", placeholder="Your name") }}
+                                {{ form.reported_by_name.label(class="form-label fw-semibold text-muted small
+                                text-uppercase") }}
+                                {{ form.reported_by_name(class="form-control shadow-sm", placeholder="Your name") }}
                             </div>
                             <div class="col-md-6 mb-3">
-                                {{ form.reported_by_email.label(class="form-label") }}
-                                {{ form.reported_by_email(class="form-control", placeholder="Email for status updates") }}
+                                {{ form.reported_by_email.label(class="form-label fw-semibold text-muted small
+                                text-uppercase") }}
+                                {{ form.reported_by_email(class="form-control shadow-sm", placeholder="Email for status
+                                updates") }}
                             </div>
                         </div>
 
                         <!-- Submit -->
                         <hr class="my-4">
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="fas fa-paper-plane me-2"></i> Submit Complaint
+                        <div class="d-grid d-md-flex justify-content-md-end mt-4">
+                            <button type="submit"
+                                class="btn btn-primary btn-lg px-5 shadow align-items-center hover-lift">
+                                <i class="fas fa-paper-plane me-2"></i> Submit Report
                             </button>
                         </div>
                     </form>
@@ -81,7 +114,9 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="https://maps.googleapis.com/maps/api/js?key={{ config.GOOGLE_MAPS_API_KEY }}&libraries=places&callback=initAutocomplete" async defer></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key={{ config.GOOGLE_MAPS_API_KEY }}&libraries=places&callback=initAutocomplete"
+    async defer></script>
 <script>
     let autocomplete;
     function initAutocomplete() {
